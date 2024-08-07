@@ -3,11 +3,6 @@
 
 A simple full-stack MERN Todo application which allows a user to add, update, delete and view todos. 
 
-## Tools and Technologies
-
-
-
-
 
 ## Tech Stack
 
