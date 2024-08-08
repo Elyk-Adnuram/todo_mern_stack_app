@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json()); // express middleware for sending and receiving json data
 
 //Connect to MongoDB using Mongoose library
-//mongooose.connect: This is the Mongoose method used to initiate a connection to a MongoDB database.
+//mongoose.connect: This is the Mongoose method used to initiate a connection to a MongoDB database.
 mongoose.connect("mongodb://localhost/mern-stack-db", {
   //'mongodb://localhost/mern-stack-db': This is the connection string specifying the location of the database.
   // mongodb://: Indicates the MongoDB protocol.
@@ -17,6 +17,16 @@ mongoose.connect("mongodb://localhost/mern-stack-db", {
   // mern-stack-db: The name of the database you want to use.
   useNewURLParser: true, // Uses the new URL parser, which is recommended for newer MongoDB drivers
   useUnifiedTopology: true, // Enables the new Server Discovery and Monitoring engine, providing improved connection stability and performance
+});
+
+const db = mongoose.connection; //represents the connection to the MongoDB database established by Mongoose.
+//sets up an event listener on the db object. It listens for the "error" event, which is emitted when there's an error connecting to the database.
+//if an error occurs, the provided callback function will be executed.
+db.on("error", console.error.bind(console, "connection error:"));
+//This line sets up another event listener on the db object
+db.once("open", () => {
+  //It listens for the "open" event, which is emitted once the connection to the database is successfully established.
+  console.log("Connected to MongoDB");
 });
 
 //Define routes and middleware
